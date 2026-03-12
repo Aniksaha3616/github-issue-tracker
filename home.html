@@ -8,16 +8,19 @@
 
     <title>GitHub Issues Tracker</title>
 
-    <!-- Fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-
-    <!-- Font -->
+    <!-- fontawasome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font family -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
-
-    <!-- DaisyUI + Tailwind -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet">
+    <!-- tailwind+daisyui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="./style/style.css">
 
 </head>
 
@@ -25,30 +28,56 @@
 
     <!-- Navbar -->
 
-    <div class="navbar bg-white shadow px-8">
-
-        <div class="flex-1 flex items-center gap-2">
-
-            <img src="./assets/github-logo.png" class="w-8">
-
-            <h1 class="font-bold text-lg">
-                GitHub Issues Tracker
-            </h1>
-
+    <!-- Navbar -->
+    
+    <div class="bg-gray-50 border-b">
+    
+        <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+    
+            <!-- Left side -->
+    
+            <div class="flex items-center gap-3">
+    
+                <img src="./assets/github-logo.png" class="w-7">
+    
+                <h1 class="font-semibold text-gray-800 text-lg">
+                    GitHub Issues Tracker
+                </h1>
+    
+            </div>
+    
+    
+            <!-- Right side -->
+    
+            <div class="flex items-center gap-3">
+    
+                <!-- Search -->
+    
+                <div class="relative">
+    
+                    <i
+                        class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+    
+                    <input id="searchInput" type="text" placeholder="Search issues..."
+                        class="pl-9 pr-3 py-2 border rounded-md text-sm w-56 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+    
+                </div>
+    
+    
+                <!-- Button -->
+    
+                <button onclick="searchIssues()"
+                    class="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2">
+    
+                    <i class="fa-solid fa-plus"></i>
+                    New Issue
+    
+                </button>
+    
+            </div>
+    
         </div>
-
-        <div class="flex gap-2">
-
-            <input id="searchInput" class="input input-bordered" placeholder="Search issues...">
-
-            <button onclick="searchIssues()" class="btn btn-primary">
-
-                Search
-
-            </button>
-
-        </div>
-
+    
     </div>
 
     <!-- Main -->
@@ -115,7 +144,84 @@
 
     <!-- Modal -->
 
+    <dialog id="issueModal" class="modal">
     
+        <div class="modal-box max-w-lg">
+    
+            <h3 id="modalTitle" class="font-bold text-lg mb-2"></h3>
+    
+            <div class="flex items-center gap-2 text-xs mb-3">
+    
+                <span id="modalStatus" class="px-2 py-1 bg-green-100 text-green-600 rounded-full font-semibold">
+                    Opened
+                </span>
+    
+                <span class="text-gray-500">
+                    Opened by <b id="modalAuthor"></b>
+                </span>
+    
+                <span class="text-gray-400">
+                    •
+                </span>
+    
+                <span id="modalDate" class="text-gray-500"></span>
+    
+            </div>
+    
+    
+            <div class="flex gap-2 mb-4">
+    
+                <span class="px-2 py-1 text-[11px] rounded-full bg-red-100 text-red-500 border border-red-200">
+                    BUG
+                </span>
+    
+                <span class="px-2 py-1 text-[11px] rounded-full bg-yellow-100 text-yellow-600 border border-yellow-200">
+                    HELP WANTED
+                </span>
+    
+            </div>
+    
+    
+            <p id="modalDesc" class="text-sm text-gray-600 mb-4"></p>
+    
+    
+            <div class="bg-gray-100 rounded-lg p-4 flex justify-between">
+    
+                <div>
+    
+                    <p class="text-xs text-gray-500 mb-1">Assignee</p>
+                    <p id="modalAssignee" class="text-sm font-medium"></p>
+    
+                </div>
+    
+                <div>
+    
+                    <p class="text-xs text-gray-500 mb-1">Priority</p>
+    
+                    <span id="modalPriority" class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-500">
+                        HIGH
+                    </span>
+    
+                </div>
+    
+            </div>
+    
+    
+            <div class="flex justify-end mt-5">
+    
+                <form method="dialog">
+    
+                    <button class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm">
+                        Close
+                    </button>
+    
+                </form>
+    
+            </div>
+    
+        </div>
+    
+    </dialog>
 
     <script src="./Script/issues.js"></script>
 

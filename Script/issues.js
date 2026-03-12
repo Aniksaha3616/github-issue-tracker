@@ -259,8 +259,6 @@ async function showIssue(id) {
 
 showLoading(true);
 
-
-
 try {
 
 const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
@@ -270,34 +268,49 @@ const data = await res.json();
 const issue = data.data;
 
 
-
 document.getElementById("modalTitle").innerText = issue.title;
-
 document.getElementById("modalDesc").innerText = issue.description;
-
-document.getElementById("modalStatus").innerText = issue.status;
-
 document.getElementById("modalAuthor").innerText = issue.author;
-
-document.getElementById("modalPriority").innerText = issue.priority;
-
-document.getElementById("modalLabel").innerText = issue.label;
-
 document.getElementById("modalDate").innerText = issue.createdAt;
+document.getElementById("modalAssignee").innerText = issue.author;
 
+
+const priorityEl = document.getElementById("modalPriority");
+
+priorityEl.innerText = issue.priority.toUpperCase();
+
+
+if(issue.priority.toLowerCase() === "high"){
+
+priorityEl.className =
+"px-2 py-1 text-xs rounded-full bg-red-100 text-red-500";
+
+}
+else if(issue.priority.toLowerCase() === "medium"){
+
+priorityEl.className =
+"px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-600";
+
+}
+else{
+
+priorityEl.className =
+"px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-500";
+
+}
 
 
 document.getElementById("issueModal").showModal();
 
 }
 
-catch (error) {
+catch(error){
 
 console.error(error);
 
 }
 
-finally {
+finally{
 
 showLoading(false);
 
@@ -306,40 +319,28 @@ showLoading(false);
 }
 
 
-
 async function searchIssues() {
 
 const text = document.getElementById("searchInput").value.trim();
 
-
-
 if (!text) {
 
 displayIssues(allIssues);
-
 return;
 
 }
 
-
-
 showLoading(true);
-
-
 
 try {
 
 const res = await fetch(
-
 `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${encodeURIComponent(text)}`
-
 );
 
-
+if (!res.ok) throw new Error("Search failed");
 
 const data = await res.json();
-
-
 
 displayIssues(data.data || []);
 
@@ -347,7 +348,9 @@ displayIssues(data.data || []);
 
 catch (error) {
 
-console.error(error);
+console.error("Search error:", error);
+
+alert("Search failed");
 
 }
 
@@ -368,3 +371,11 @@ const loading = document.getElementById("loading");
 loading.classList.toggle("hidden", !state);
 
 }
+
+document.getElementById("searchInput").addEventListener("input", function(){
+
+if(this.value.trim() === ""){
+displayIssues(allIssues);
+}
+
+});
