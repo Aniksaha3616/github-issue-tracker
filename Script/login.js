@@ -1,19 +1,18 @@
-document.getElementById("loginForm").addEventListener("submit", function(login){
+const form = document.getElementById("loginForm");
 
-login.preventDefault()
+form.addEventListener("submit", function(e){
+    e.preventDefault();
 
-const username = document.getElementById("username").value
-const password = document.getElementById("password").value
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-if(username === "admin" && password === "admin123"){
+    if(username === "admin" && password === "admin123"){
+        
+        localStorage.setItem("auth","true");
 
-localStorage.setItem("auth","true")
-window.location.href="home.html"
+        window.location.href = "home.html";
 
-}else{
-
-alert("Invalid Credentials")
-
-}
-
-})
+    }else{
+        alert("Invalid credentials");
+    }
+});
